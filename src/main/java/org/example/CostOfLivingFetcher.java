@@ -12,12 +12,12 @@ import java.net.http.HttpResponse;
 public class CostOfLivingFetcher {
 
     private static final String API_KEY = "1ec619e953mshea7c61ed7f6c153p19b1b7jsneab72f07ca59";
-    private static final String API_HOST = "cities-cost-of-living-and-average-prices-api.p.rapidapi.com";
-    private static final String API_ENDPOINT = "/cost_of_living";
+    static final String API_HOST = "cities-cost-of-living-and-average-prices-api.p.rapidapi.com";
+    static final String API_ENDPOINT = "/cost_of_living";
 
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        String country = "united-states";
-        String city = "austin-tx";
+        String country = "india";
+        String city = "pune";
 
         String url = buildUrl(country, city);
         String responseBody = fetchData(url);
@@ -36,7 +36,7 @@ public class CostOfLivingFetcher {
         return builder.build().toString();
     }
 
-    private static String fetchData(String url) throws IOException, InterruptedException {
+    static String fetchData(String url) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("X-RapidAPI-Key", API_KEY)
