@@ -41,7 +41,7 @@ public class Main extends JFrame {
     private final JTextField city1Field, city2Field;
 
     public Main() {
-        setTitle("Air Quality Comparison");
+        setTitle("CityScale");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
@@ -81,7 +81,6 @@ public class Main extends JFrame {
         String city1 = city1Field.getText();
         String city2 = city2Field.getText();
 
-        // Assume you have a method to get the air quality index for each city
         int airQualityCity1 = getAirQualityIndex(city1);
         int airQualityCity2 = getAirQualityIndex(city2);
 
@@ -95,7 +94,7 @@ public class Main extends JFrame {
             resultLabel.setText("Both cities have the same air quality.");
         }
     }
-    // Method to get air quality index (dummy implementation)
+
     private int getAirQualityIndex(String city) {
         String apiUrl = "https://api.waqi.info/feed/"+city+"/?token=69bb917284373b34c2099442b1ea2fa004f3a2cb";
         try {
