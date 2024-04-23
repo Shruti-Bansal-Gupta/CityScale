@@ -1,6 +1,8 @@
 package org.example;
 import org.apache.hc.core5.net.URIBuilder;
 import org.json.JSONObject;
+
+import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
 import java.awt.event.*;
@@ -11,7 +13,7 @@ import static org.example.CostOfLivingFetcher.*;
 
 public class Main extends JFrame {
     public static int aqi;
-    private final JLabel resultLabel,resultLabel2;
+    private final JLabel resultLabel, resultLabel2;
     public JTextField city1Field, country1Field;
     public JTextField city2Field, country2Field;
 
@@ -21,6 +23,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
+        // Labels for city and country information
         JLabel city1Label = new JLabel("Enter City 1:");
         city1Label.setBounds(50, 30, 100, 30);
         add(city1Label);
@@ -53,29 +56,48 @@ public class Main extends JFrame {
         country2Field.setBounds(150, 150, 150, 30);
         add(country2Field);
 
+        // Radio buttons for comparison choice
+        ButtonGroup comparisonChoice = new ButtonGroup();
+
+        JRadioButton aqiCompareButton = new JRadioButton("Air Quality");
+        aqiCompareButton.setBounds(50, 190, 100, 30);
+        aqiCompareButton.setSelected(true); // Set AQI comparison as default
+        comparisonChoice.add(aqiCompareButton);
+        add(aqiCompareButton);
+
+        JRadioButton costCompareButton = new JRadioButton("Cost of Living");
+        costCompareButton.setBounds(150, 190, 150, 30);
+        comparisonChoice.add(costCompareButton);
+        add(costCompareButton);
+
         JButton compareButton = new JButton("Compare");
-        compareButton.setBounds(120, 190, 100, 30);
+        compareButton.setBounds(120, 230, 100, 30);
         compareButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                compareCities();
-                System.out.println();
-                try {
-                    compareCost();
-                } catch (URISyntaxException | InterruptedException | IOException ex) {
-                    throw new RuntimeException(ex);
+                if (aqiCompareButton.isSelected()) {
+                    compareCities();
+                } else if (costCompareButton.isSelected()) {
+                    try {
+                        compareCost();
+                    } catch (URISyntaxException | InterruptedException | IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    System.out.println("Please select a comparison criteria.");
                 }
             }
         });
         add(compareButton);
 
         resultLabel = new JLabel();
-        resultLabel.setBounds(50, 210, 300, 100);
+        resultLabel.setBounds(50, 270, 300, 100);
         add(resultLabel);
         resultLabel2 = new JLabel();
-        resultLabel2.setBounds(50, 250, 300, 100);
+        resultLabel2.setBounds(50, 310, 300, 100);
         add(resultLabel2);
 
         setVisible(true);
+        setLocationRelativeTo(null);
     }
     private void compareCities() {
         String city1 = city1Field.getText();
