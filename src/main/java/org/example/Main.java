@@ -13,65 +13,80 @@ import static org.example.CostOfLivingFetcher.*;
 
 public class Main extends JFrame {
     public static int aqi;
-    private final JLabel resultLabel, resultLabel2;
+    private final JTextArea resultLabel, resultLabel2;
+    public JLabel label1;
     public JTextField city1Field, country1Field;
     public JTextField city2Field, country2Field;
 
     public Main() {
         setTitle("CityScale");
-        setSize(600, 600);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+//        setLayout(new BorderLayout());
+//
+//
+//        // Add description label
+//        JLabel descriptionLabel = new JLabel("Compare cities based on Air Quality and Cost of Living");
+//        descriptionLabel.setForeground(Color.BLUE);
+//        descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//        descriptionLabel.setFont(new Font("Arial", Font.BOLD, 18));
+//        add(descriptionLabel, BorderLayout.NORTH);
 
-        // Labels for city and country information
-        JLabel city1Label = new JLabel("Enter City 1:");
-        city1Label.setBounds(50, 30, 100, 30);
+        JLabel label1 = new JLabel("Compare cities based on Air Quality and Cost of Living");
+        label1.setForeground(Color.BLUE);
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+        label1.setFont(new Font("Arial", Font.BOLD, 18));
+        label1.setBounds(40, 30, 700, 30);
+        add(label1);
+
+        JLabel city1Label = new JLabel("City 1:");
+        city1Label.setBounds(50, 90, 70, 30);
         add(city1Label);
 
         city1Field = new JTextField();
-        city1Field.setBounds(150, 30, 150, 30);
+        city1Field.setBounds(130, 90, 150, 30);
         add(city1Field);
 
-        JLabel city2Label = new JLabel("Enter City 2:");
-        city2Label.setBounds(50, 70, 100, 30);
+        JLabel city2Label = new JLabel("City 2:");
+        city2Label.setBounds(390, 90, 70, 30);
         add(city2Label);
 
         city2Field = new JTextField();
-        city2Field.setBounds(150, 70, 150, 30);
+        city2Field.setBounds(470, 90, 150, 30);
         add(city2Field);
 
-        JLabel country1Label = new JLabel("Enter country 1:");
-        country1Label.setBounds(50, 110, 100, 30);
+        JLabel country1Label = new JLabel("country 1:");
+        country1Label.setBounds(50, 170, 70, 30);
         add(country1Label);
 
         country1Field = new JTextField();
-        country1Field.setBounds(150, 110, 150, 30);
+        country1Field.setBounds(130, 170, 150, 30);
         add(country1Field);
 
-        JLabel country2Label = new JLabel("Enter country 2:");
-        country2Label.setBounds(50, 150, 100, 30);
+        JLabel country2Label = new JLabel("country 2:");
+        country2Label.setBounds(390, 170, 70, 30);
         add(country2Label);
 
         country2Field = new JTextField();
-        country2Field.setBounds(150, 150, 150, 30);
+        country2Field.setBounds(470, 170, 150, 30);
         add(country2Field);
 
         // Radio buttons for comparison choice
         ButtonGroup comparisonChoice = new ButtonGroup();
 
         JRadioButton aqiCompareButton = new JRadioButton("Air Quality");
-        aqiCompareButton.setBounds(50, 190, 100, 30);
+        aqiCompareButton.setBounds(50, 250, 100, 30);
         aqiCompareButton.setSelected(true); // Set AQI comparison as default
         comparisonChoice.add(aqiCompareButton);
-        add(aqiCompareButton);
+
 
         JRadioButton costCompareButton = new JRadioButton("Cost of Living");
-        costCompareButton.setBounds(150, 190, 150, 30);
+        costCompareButton.setBounds(250, 250, 150, 30);
         comparisonChoice.add(costCompareButton);
-        add(costCompareButton);
 
         JButton compareButton = new JButton("Compare");
-        compareButton.setBounds(120, 230, 100, 30);
+        compareButton.setBounds(120, 290, 100, 30);
         compareButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (aqiCompareButton.isSelected()) {
@@ -87,13 +102,17 @@ public class Main extends JFrame {
                 }
             }
         });
+        add(aqiCompareButton);
+        add(costCompareButton);
+
+//        add(compareButton);
         add(compareButton);
 
-        resultLabel = new JLabel();
-        resultLabel.setBounds(50, 270, 300, 100);
+        resultLabel = new JTextArea();
+        resultLabel.setBounds(50, 340, 300, 40);
         add(resultLabel);
-        resultLabel2 = new JLabel();
-        resultLabel2.setBounds(50, 310, 300, 100);
+        resultLabel2 = new JTextArea();
+        resultLabel2.setBounds(50, 400, 300, 40);
         add(resultLabel2);
 
         setVisible(true);
