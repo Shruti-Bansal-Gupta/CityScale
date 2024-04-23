@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.*;
 import java.net.*;
 
@@ -36,7 +37,7 @@ public class Main extends JFrame {
         JLabel label1 = new JLabel("Compare cities based on Air Quality and Cost of Living");
         label1.setForeground(Color.BLUE);
         label1.setHorizontalAlignment(SwingConstants.CENTER);
-        label1.setFont(new Font("Arial", Font.BOLD, 18));
+        label1.setFont(new Font("Arial", Font.BOLD, 23));
         label1.setBounds(35, 30, 700, 30);
         add(label1);
 
@@ -44,56 +45,63 @@ public class Main extends JFrame {
         label2.setForeground(Color.BLUE);
 //        label2.setHorizontalAlignment(SwingConstants.CENTER);
         label2.setFont(new Font("Arial", Font.BOLD, 14));
-        label2.setBounds(50, 220, 700, 30);
+        label2.setBounds(50, 230, 700, 30);
 
 
         JLabel city1Label = new JLabel("City 1:");
+        city1Label.setFont(new Font("Arial", Font.BOLD, 17));
         city1Label.setBounds(50, 90, 70, 30);
         add(city1Label);
 
         city1Field = new JTextField();
-        city1Field.setBounds(130, 90, 150, 30);
+        city1Field.setBounds(160, 90, 150, 30);
         add(city1Field);
 
         JLabel city2Label = new JLabel("City 2:");
         city2Label.setBounds(390, 90, 70, 30);
+        city2Label.setFont(new Font("Arial", Font.BOLD, 17));
         add(city2Label);
 
         city2Field = new JTextField();
-        city2Field.setBounds(470, 90, 150, 30);
+        city2Field.setBounds(500, 90, 150, 30);
         add(city2Field);
 
-        JLabel country1Label = new JLabel("country 1:");
-        country1Label.setBounds(50, 170, 70, 30);
+        JLabel country1Label = new JLabel("Country 1:");
+        country1Label.setBounds(50, 170, 90, 30);
+        country1Label.setFont(new Font("Arial", Font.BOLD, 17));
         add(country1Label);
 
         country1Field = new JTextField();
-        country1Field.setBounds(130, 170, 150, 30);
+        country1Field.setBounds(160, 170, 150, 30);
         add(country1Field);
 
-        JLabel country2Label = new JLabel("country 2:");
-        country2Label.setBounds(390, 170, 70, 30);
+        JLabel country2Label = new JLabel("Country 2:");
+        country2Label.setBounds(390, 170, 90, 30);
+        country2Label.setFont(new Font("Arial", Font.BOLD, 17));
         add(country2Label);
 
         country2Field = new JTextField();
-        country2Field.setBounds(470, 170, 150, 30);
+        country2Field.setBounds(500, 170, 150, 30);
         add(country2Field);
 
         // Radio buttons for comparison choice
         ButtonGroup comparisonChoice = new ButtonGroup();
 
         JRadioButton aqiCompareButton = new JRadioButton("Air Quality");
-        aqiCompareButton.setBounds(50, 250, 100, 30);
+        aqiCompareButton.setBounds(50, 270, 160, 30);
+        aqiCompareButton.setFont(new Font("Arial", Font.BOLD, 17));
         aqiCompareButton.setSelected(true); // Set AQI comparison as default
         comparisonChoice.add(aqiCompareButton);
 
 
         JRadioButton costCompareButton = new JRadioButton("Cost of Living");
-        costCompareButton.setBounds(250, 250, 150, 30);
+        costCompareButton.setBounds(250, 270, 150, 30);
+        costCompareButton.setFont(new Font("Arial", Font.BOLD, 17));
         comparisonChoice.add(costCompareButton);
 
         JButton compareButton = new JButton("Compare");
-        compareButton.setBounds(120, 290, 100, 30);
+        compareButton.setBounds(320, 320, 150, 50);
+        compareButton.setFont(new Font("Arial", Font.BOLD, 16));
         compareButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (aqiCompareButton.isSelected()) {
@@ -116,11 +124,16 @@ public class Main extends JFrame {
 //        add(compareButton);
         add(compareButton);
 
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+
         resultLabel = new JTextArea();
-        resultLabel.setBounds(50, 340, 300, 40);
+        resultLabel.setBounds(50, 400, 320, 300);
+        resultLabel.setBorder(border);
         add(resultLabel);
+
         resultLabel2 = new JTextArea();
-        resultLabel2.setBounds(50, 400, 300, 40);
+        resultLabel2.setBounds(420, 400, 320, 300);
+        resultLabel2.setBorder(border);
         add(resultLabel2);
 
         setVisible(true);
