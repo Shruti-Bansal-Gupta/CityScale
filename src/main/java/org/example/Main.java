@@ -12,6 +12,7 @@ import java.net.*;
 
 import static org.example.CostOfLivingComparator.calculateCost;
 import static org.example.CostOfLivingFetcher.*;
+import static org.example.ExchangeRateFetcher.convertUSDToINR;
 
 public class Main extends JFrame {
     public static int aqi;
@@ -194,7 +195,9 @@ public class Main extends JFrame {
         JSONObject city2Data = new JSONObject(CostOfLivingFetcher.fetchData(url2));
 
         double city1Cost = calculateCost(city1Data);
+        city1Cost = convertUSDToINR(city1Cost);
         double city2Cost = calculateCost(city2Data);
+        city2Cost = convertUSDToINR(city2Cost);
 
         String pocketFriendlyCity = city1Cost < city2Cost ? city1Data.getString("City Name") : city2Data.getString("City Name");
 
