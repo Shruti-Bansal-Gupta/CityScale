@@ -25,7 +25,7 @@ public class CostOfLivingFetcher {
         System.out.println(responseBody);
     }
 
-    private static String buildUrl(String country, String city) throws URISyntaxException {
+    static String buildUrl(String country, String city) throws URISyntaxException {
         URIBuilder builder = new URIBuilder();
         builder.setScheme("https")
                 .setHost(API_HOST)

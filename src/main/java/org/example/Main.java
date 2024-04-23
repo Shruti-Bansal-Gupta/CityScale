@@ -1,39 +1,13 @@
 package org.example;
-
 import org.apache.hc.core5.net.URIBuilder;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
-//
-//
-//public class Main {
-//    public static int aqi;
-//    public static void main(String[] args) {
-//        new Main().getAQI();
-//    }
-//
-//    public void getAQI(){
-//        String apiUrl = "https://api.waqi.info/feed/newyork/?token=69bb917284373b34c2099442b1ea2fa004f3a2cb";
-//        try {
-//            aqi = AirQualityIndex.getAqiOfCity(apiUrl);
-//            System.out.println("AQI of : " + aqi);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    };
-//
-//}
-
-
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.net.*;
 
-import static org.example.CostOfLivingFetcher.API_ENDPOINT;
-import static org.example.CostOfLivingFetcher.API_HOST;
+import static org.example.CostOfLivingComparator.calculateCost;
+import static org.example.CostOfLivingFetcher.*;
 
 public class Main extends JFrame {
     public static int aqi;
@@ -131,7 +105,6 @@ public class Main extends JFrame {
     }
 
     private void compareCost() throws URISyntaxException, IOException, InterruptedException {
-        // Replace these with actual JSON data from your API call
         String city1 = city1Field.getText();
         String city2 = city2Field.getText();
         String country1 = country1Field.getText();
@@ -153,67 +126,6 @@ public class Main extends JFrame {
         System.out.println("Estimated cost of living for " + city2Data.getString("City Name") + ": $" + city2Cost);
         System.out.println("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
     }
-
-    private static String buildUrl(String country, String city) throws URISyntaxException {
-        URIBuilder builder = new URIBuilder();
-        builder.setScheme("https")
-                .setHost(API_HOST)
-                .setPath(API_ENDPOINT)
-                .addParameter("country", country)
-                .addParameter("city", city);
-
-        return builder.build().toString();
-    }
-    private static double calculateCost(JSONObject cityData) {
-        double totalCost = 0.0;
-
-        // Base cost of living (excluding rent)
-        totalCost += Double.parseDouble(cityData.get("Cost of Living Month Total").toString());
-
-        // Include user-defined categories (modify as needed)
-        String[] categoryNames = {
-                "Restaurants prices",
-                "Markets prices",
-                "Transportation prices",
-                "Utilities Per Month prices",
-                // Add other categories here
-        };
-
-        for (String categoryName : categoryNames) {
-            totalCost += getCostFromCategory(cityData, categoryName);
-        }
-
-        // Optionally include rent based on user needs
-        if (cityData.has("Rent Per Month prices")) {
-            // Choose specific rent cost based on user preference (city center, etc.)
-            // Modify this logic to pick the desired rent cost
-            JSONObject rentItem = cityData.getJSONArray("Rent Per Month prices").getJSONObject(0);
-            totalCost += Double.parseDouble(rentItem.getString("Value"));
-        }
-
-        return totalCost;
-    }
-
-
-    private static double getCostFromCategory(JSONObject cityData, String categoryName) {
-        double categoryCost = 0.0;
-        if (cityData.has(categoryName)) {
-            for (Object item : cityData.getJSONArray(categoryName)) {
-                JSONObject costItem = (JSONObject) item;
-                String valueString = costItem.getString("Value");
-
-                // Locale-aware parsing
-                try {
-                    categoryCost += Double.parseDouble(valueString.replace(",", "")); // Remove comma temporarily
-                } catch (NumberFormatException e) {
-                    // Handle potential parsing errors (optional)
-                    System.err.println("Error parsing cost: " + valueString);
-                }
-            }
-        }
-        return categoryCost;
-    }
-
     public static void main(String[] args) {
         new Main();
     }
