@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 
 public class CostOfLivingFetcher {
 
-    private static final String API_KEY = "1ec619e953mshea7c61ed7f6c153p19b1b7jsneab72f07ca59";
+    private static final String API_KEY = "6d36d23bc7msh66f3a8d38ffbbbfp1ee3b4jsnfc943197d821";
     static final String API_HOST = "cities-cost-of-living-and-average-prices-api.p.rapidapi.com";
     static final String API_ENDPOINT = "/cost_of_living";
 
