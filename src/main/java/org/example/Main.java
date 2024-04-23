@@ -11,7 +11,7 @@ import static org.example.CostOfLivingFetcher.*;
 
 public class Main extends JFrame {
     public static int aqi;
-    private final JLabel resultLabel;
+    private final JLabel resultLabel,resultLabel2;
     public JTextField city1Field, country1Field;
     public JTextField city2Field, country2Field;
 
@@ -69,8 +69,11 @@ public class Main extends JFrame {
         add(compareButton);
 
         resultLabel = new JLabel();
-        resultLabel.setBounds(50, 150, 300, 300);
+        resultLabel.setBounds(50, 210, 300, 100);
         add(resultLabel);
+        resultLabel2 = new JLabel();
+        resultLabel2.setBounds(50, 250, 300, 100);
+        add(resultLabel2);
 
         setVisible(true);
     }
@@ -125,6 +128,7 @@ public class Main extends JFrame {
         System.out.println("Estimated cost of living for " + city1Data.getString("City Name") + ": $" + city1Cost);
         System.out.println("Estimated cost of living for " + city2Data.getString("City Name") + ": $" + city2Cost);
         System.out.println("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
+        resultLabel2.setText("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
     }
     public static void main(String[] args) {
         new Main();
