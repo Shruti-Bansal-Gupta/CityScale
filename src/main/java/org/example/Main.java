@@ -6,9 +6,9 @@ import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 import java.net.*;
-import javax.swing.border.LineBorder;
 
 import static org.example.CostOfLivingComparator.calculateCost;
 import static org.example.CostOfLivingFetcher.*;
@@ -124,13 +124,28 @@ public class Main extends JFrame {
 
         resultLabel = new JTextArea();
         resultLabel.setBounds(50, 400, 320, 300);
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 17));
         resultLabel.setBorder(border);
         add(resultLabel);
 
+        resultLabel.setLineWrap(true); // Enable line wrapping
+
+        // Create internal padding using EmptyBorder
+        int topPadding = 10;
+        int leftPadding = 10;
+        int bottomPadding = 10;
+        int rightPadding = 10;
+        Border internalPadding = new EmptyBorder(topPadding, leftPadding, bottomPadding, rightPadding);
+        resultLabel.setBorder(BorderFactory.createCompoundBorder(resultLabel.getBorder(), internalPadding));
+
         resultLabel2 = new JTextArea();
         resultLabel2.setBounds(420, 400, 320, 300);
+        resultLabel2.setFont(new Font("Arial", Font.BOLD, 17));
         resultLabel2.setBorder(border);
         add(resultLabel2);
+
+        resultLabel2.setLineWrap(true);
+        resultLabel2.setBorder(BorderFactory.createCompoundBorder(resultLabel2.getBorder(), internalPadding));
 
         setVisible(true);
         setLocationRelativeTo(null);
@@ -145,9 +160,9 @@ public class Main extends JFrame {
         if (airQualityCity1 < 0 || airQualityCity2 < 0) {
             resultLabel.setText("Invalid city name!");
         } else if (airQualityCity1 < airQualityCity2) {
-            resultLabel.setText(city1 + " is better to live in.");
+            resultLabel.setText(city1 + " is better to live in."+"\n\n"+"AQI of "+city1+" = "+airQualityCity1+"\n"+"AQI of "+city2+" = "+airQualityCity2);
         } else if (airQualityCity1 > airQualityCity2) {
-            resultLabel.setText(city2 + " is better to live in.");
+            resultLabel.setText(city2 + " is better to live in."+"\n\n"+"AQI of "+city1+" = "+airQualityCity1+"\n"+"AQI of "+city2+" = "+airQualityCity2);
         } else {
             resultLabel.setText("Both cities have the same air quality.");
         }
@@ -183,10 +198,11 @@ public class Main extends JFrame {
 
         String pocketFriendlyCity = city1Cost < city2Cost ? city1Data.getString("City Name") : city2Data.getString("City Name");
 
-        System.out.println("Estimated cost of living for " + city1Data.getString("City Name") + ": $" + city1Cost);
-        System.out.println("Estimated cost of living for " + city2Data.getString("City Name") + ": $" + city2Cost);
-        System.out.println("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
-        resultLabel2.setText("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
+//        System.out.println("Estimated cost of living for " + city1Data.getString("City Name") + ": $" + city1Cost);
+//        System.out.println("Estimated cost of living for " + city2Data.getString("City Name") + ": $" + city2Cost);
+//        System.out.println("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
+        resultLabel2.setText(pocketFriendlyCity+" is more pocket-friendly city"+"\n\n"+"Estimated cost of living for "+city1+" : "+"\n"+city1Cost+" in USD"+
+                "\n\n"+"Estimated cost of living for "+city2+" : "+"\n"+city2Cost+" in USD");
     }
     public static void main(String[] args) {
         new Main();
