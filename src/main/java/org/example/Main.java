@@ -14,7 +14,7 @@ import static org.example.CostOfLivingFetcher.*;
 public class Main extends JFrame {
     public static int aqi;
     private final JTextArea resultLabel, resultLabel2;
-    public JLabel label1;
+    public JLabel label1, label2;
     public JTextField city1Field, country1Field;
     public JTextField city2Field, country2Field;
 
@@ -37,8 +37,15 @@ public class Main extends JFrame {
         label1.setForeground(Color.BLUE);
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         label1.setFont(new Font("Arial", Font.BOLD, 18));
-        label1.setBounds(40, 30, 700, 30);
+        label1.setBounds(35, 30, 700, 30);
         add(label1);
+
+        JLabel label2 = new JLabel("Choose on what basis you want to compare the above selected cities");
+        label2.setForeground(Color.BLUE);
+//        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        label2.setFont(new Font("Arial", Font.BOLD, 14));
+        label2.setBounds(50, 220, 700, 30);
+
 
         JLabel city1Label = new JLabel("City 1:");
         city1Label.setBounds(50, 90, 70, 30);
@@ -104,6 +111,7 @@ public class Main extends JFrame {
         });
         add(aqiCompareButton);
         add(costCompareButton);
+        add(label2);
 
 //        add(compareButton);
         add(compareButton);
