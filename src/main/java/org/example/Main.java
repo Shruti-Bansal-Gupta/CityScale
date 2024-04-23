@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.event.*;
 import java.net.*;
+import javax.swing.border.LineBorder;
 
 import static org.example.CostOfLivingComparator.calculateCost;
 import static org.example.CostOfLivingFetcher.*;
@@ -24,15 +25,10 @@ public class Main extends JFrame {
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-//        setLayout(new BorderLayout());
-//
-//
-//        // Add description label
-//        JLabel descriptionLabel = new JLabel("Compare cities based on Air Quality and Cost of Living");
-//        descriptionLabel.setForeground(Color.BLUE);
-//        descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        descriptionLabel.setFont(new Font("Arial", Font.BOLD, 18));
-//        add(descriptionLabel, BorderLayout.NORTH);
+        getContentPane().setBackground(new Color(230, 240, 255));
+
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+        Border border1 = BorderFactory.createLineBorder(Color.BLACK,3);
 
         JLabel label1 = new JLabel("Compare cities based on Air Quality and Cost of Living");
         label1.setForeground(Color.BLUE);
@@ -44,7 +40,7 @@ public class Main extends JFrame {
         JLabel label2 = new JLabel("Choose on what basis you want to compare the above selected cities");
         label2.setForeground(Color.BLUE);
 //        label2.setHorizontalAlignment(SwingConstants.CENTER);
-        label2.setFont(new Font("Arial", Font.BOLD, 14));
+        label2.setFont(new Font("Arial", Font.BOLD, 15));
         label2.setBounds(50, 230, 700, 30);
 
 
@@ -95,13 +91,15 @@ public class Main extends JFrame {
 
 
         JRadioButton costCompareButton = new JRadioButton("Cost of Living");
-        costCompareButton.setBounds(250, 270, 150, 30);
+        costCompareButton.setBounds(420, 270, 160, 30);
         costCompareButton.setFont(new Font("Arial", Font.BOLD, 17));
         comparisonChoice.add(costCompareButton);
 
         JButton compareButton = new JButton("Compare");
         compareButton.setBounds(320, 320, 150, 50);
         compareButton.setFont(new Font("Arial", Font.BOLD, 16));
+        compareButton.setBorder(border1);
+
         compareButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (aqiCompareButton.isSelected()) {
@@ -123,8 +121,6 @@ public class Main extends JFrame {
 
 //        add(compareButton);
         add(compareButton);
-
-        Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
 
         resultLabel = new JTextArea();
         resultLabel.setBounds(50, 400, 320, 300);
