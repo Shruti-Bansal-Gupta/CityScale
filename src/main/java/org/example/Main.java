@@ -1,22 +1,25 @@
 package org.example;
-import org.apache.hc.core5.net.URIBuilder;
+
 import org.json.JSONObject;
 
-import java.awt.*;
-import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.*;
-import java.net.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
+import static org.example.CityAutocompleteExample.fetchAndPopulateCities;
 import static org.example.CostOfLivingComparator.calculateCost;
-import static org.example.CostOfLivingFetcher.*;
+import static org.example.CostOfLivingFetcher.buildUrl;
 import static org.example.ExchangeRateFetcher.convertUSDToINR;
 
 public class Main extends JFrame {
     public static int aqi;
     private final JTextArea resultLabel, resultLabel2;
+    public JComboBox<String> comboBox,comboBox1;
     public JLabel label1, label2;
     public JTextField city1Field, country1Field;
     public JTextField city2Field, country2Field;
@@ -50,18 +53,31 @@ public class Main extends JFrame {
         city1Label.setBounds(50, 90, 70, 30);
         add(city1Label);
 
-        city1Field = new JTextField();
-        city1Field.setBounds(160, 90, 150, 30);
-        add(city1Field);
+//        city1Field = new JTextField();
+//        city1Field.setBounds(160, 90, 150, 30);
+//        city1Field.setFont(new Font("Arial", Font.BOLD, 16));
+//        add(city1Field);
+
+        comboBox = new JComboBox<>();
+        comboBox.setBounds(160, 90, 150, 30);
+        fetchAndPopulateCities(comboBox);
+        add(comboBox);
+
 
         JLabel city2Label = new JLabel("City 2:");
         city2Label.setBounds(390, 90, 70, 30);
         city2Label.setFont(new Font("Arial", Font.BOLD, 17));
         add(city2Label);
 
-        city2Field = new JTextField();
-        city2Field.setBounds(500, 90, 150, 30);
-        add(city2Field);
+//        city2Field = new JTextField();
+//        city2Field.setBounds(500, 90, 150, 30);
+//        city2Field.setFont(new Font("Arial", Font.BOLD, 16));
+//        add(city2Field);
+
+        comboBox1 = new JComboBox<>();
+        comboBox1.setBounds(500, 90, 150, 30);
+        fetchAndPopulateCities(comboBox1);
+        add(comboBox1);
 
         JLabel country1Label = new JLabel("Country 1:");
         country1Label.setBounds(50, 170, 90, 30);
@@ -70,6 +86,7 @@ public class Main extends JFrame {
 
         country1Field = new JTextField();
         country1Field.setBounds(160, 170, 150, 30);
+        country1Field.setFont(new Font("Arial", Font.BOLD, 16));
         add(country1Field);
 
         JLabel country2Label = new JLabel("Country 2:");
@@ -79,6 +96,7 @@ public class Main extends JFrame {
 
         country2Field = new JTextField();
         country2Field.setBounds(500, 170, 150, 30);
+        country2Field.setFont(new Font("Arial", Font.BOLD, 16));
         add(country2Field);
 
         // Radio buttons for comparison choice
@@ -101,19 +119,17 @@ public class Main extends JFrame {
         compareButton.setFont(new Font("Arial", Font.BOLD, 16));
         compareButton.setBorder(border1);
 
-        compareButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (aqiCompareButton.isSelected()) {
-                    compareCities();
-                } else if (costCompareButton.isSelected()) {
-                    try {
-                        compareCost();
-                    } catch (URISyntaxException | InterruptedException | IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } else {
-                    System.out.println("Please select a comparison criteria.");
+        compareButton.addActionListener(e -> {
+            if (aqiCompareButton.isSelected()) {
+                compareCities();
+            } else if (costCompareButton.isSelected()) {
+                try {
+                    compareCost();
+                } catch (URISyntaxException | InterruptedException | IOException ex) {
+                    throw new RuntimeException(ex);
                 }
+            } else {
+                System.out.println("Please select a comparison criteria.");
             }
         });
         add(aqiCompareButton);
@@ -152,8 +168,24 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
     }
     private void compareCities() {
-        String city1 = city1Field.getText();
-        String city2 = city2Field.getText();
+//        String city1 = city1Field.getText();
+        String city1 = (String) comboBox.getSelectedItem();
+
+        if (city1 != null) {
+            // Split the selected item by comma and get the part before comma
+            String[] parts = city1.split(",");
+            city1 = parts[0].trim();
+            System.out.println("Selected city: " + city1);
+        }
+
+        String city2 = (String) comboBox1.getSelectedItem();
+
+        if (city2 != null) {
+            // Split the selected item by comma and get the part before comma
+            String[] parts = city2.split(",");
+            city2 = parts[0].trim();
+            System.out.println("Selected city: " + city2);
+        }
 
         int airQualityCity1 = getAirQualityIndex(city1);
         int airQualityCity2 = getAirQualityIndex(city2);
@@ -182,8 +214,24 @@ public class Main extends JFrame {
     }
 
     private void compareCost() throws URISyntaxException, IOException, InterruptedException {
-        String city1 = city1Field.getText();
-        String city2 = city2Field.getText();
+//        String city1 = city1Field.getText();
+        String city1 = (String) comboBox.getSelectedItem();
+
+        if (city1 != null) {
+            // Split the selected item by comma and get the part before comma
+            String[] parts = city1.split(",");
+            city1 = parts[0].trim();
+            System.out.println("Selected city: " + city1);
+        }
+//        String city2 = city2Field.getText();
+        String city2 = (String) comboBox1.getSelectedItem();
+
+        if (city2 != null) {
+            // Split the selected item by comma and get the part before comma
+            String[] parts = city2.split(",");
+            city2 = parts[0].trim();
+            System.out.println("Selected city: " + city2);
+        }
         String country1 = country1Field.getText();
         String country2 = country2Field.getText();
 
@@ -204,8 +252,8 @@ public class Main extends JFrame {
 //        System.out.println("Estimated cost of living for " + city1Data.getString("City Name") + ": $" + city1Cost);
 //        System.out.println("Estimated cost of living for " + city2Data.getString("City Name") + ": $" + city2Cost);
 //        System.out.println("The more pocket-friendly city to live in is: " + pocketFriendlyCity);
-        resultLabel2.setText(pocketFriendlyCity+" is more pocket-friendly city"+"\n\n"+"Estimated cost of living for "+city1+" : INR "+"\n"+city1Cost+
-                "\n\n"+"Estimated cost of living for "+city2+" : INR "+"\n"+city2Cost);
+        resultLabel2.setText(pocketFriendlyCity+" is more pocket-friendly city"+"\n\n"+"Estimated cost of living for "+city1+" : "+"\n"+"INR "+city1Cost+
+                "\n\n"+"Estimated cost of living for "+city2+" : "+"\n"+"INR "+city2Cost);
     }
     public static void main(String[] args) {
         new Main();
