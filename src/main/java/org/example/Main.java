@@ -140,7 +140,7 @@ public class Main extends JFrame {
         add(compareButton);
 
         resultLabel = new JTextArea();
-        resultLabel.setBounds(50, 400, 320, 300);
+        resultLabel.setBounds(50, 400, 320, 270);
         resultLabel.setFont(new Font("Arial", Font.BOLD, 17));
         resultLabel.setBorder(border);
         add(resultLabel);
@@ -155,14 +155,26 @@ public class Main extends JFrame {
         Border internalPadding = new EmptyBorder(topPadding, leftPadding, bottomPadding, rightPadding);
         resultLabel.setBorder(BorderFactory.createCompoundBorder(resultLabel.getBorder(), internalPadding));
 
+        JButton visualbutton1 = new JButton("Visual");
+        visualbutton1.setBounds(110, 680, 150, 50);
+        visualbutton1.setFont(new Font("Arial", Font.BOLD, 16));
+        visualbutton1.setBorder(border1);
+        add(visualbutton1);
+
         resultLabel2 = new JTextArea();
-        resultLabel2.setBounds(420, 400, 320, 300);
+        resultLabel2.setBounds(420, 400, 320, 270);
         resultLabel2.setFont(new Font("Arial", Font.BOLD, 17));
         resultLabel2.setBorder(border);
         add(resultLabel2);
 
         resultLabel2.setLineWrap(true);
         resultLabel2.setBorder(BorderFactory.createCompoundBorder(resultLabel2.getBorder(), internalPadding));
+
+        JButton visualbutton2 = new JButton("Visual");
+        visualbutton2.setBounds(510, 680, 150, 50);
+        visualbutton2.setFont(new Font("Arial", Font.BOLD, 16));
+        visualbutton2.setBorder(border1);
+        add(visualbutton2);
 
         setVisible(true);
         setLocationRelativeTo(null);

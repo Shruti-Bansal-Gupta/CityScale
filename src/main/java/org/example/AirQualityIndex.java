@@ -28,6 +28,6 @@ public class AirQualityIndex {
         return aqi;
     }
 
-  
+
 
 }

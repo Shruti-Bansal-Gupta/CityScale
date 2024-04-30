@@ -45,6 +45,6 @@ public class CityAQIComparison extends JFrame {
 
     public static void main(String[] args) {
         // Run the application
-        SwingUtilities.invokeLater(() -> new CityAQIComparison());
+        SwingUtilities.invokeLater(CityAQIComparison::new);
     }
 }
